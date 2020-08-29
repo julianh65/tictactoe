@@ -1,0 +1,176 @@
+<head>
+
+    <title>Julians Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+
+
+</head>
+
+<body>
+
+    <div id="pageContainer">
+        <div id="startPage" class="hide">
+            <div id="startPageContent">
+                <div id="startPageTitle">
+                    Julian's Tic Tac Toe
+                </div>
+                <div id="playerNameInput">
+                    <input type="text" placeholder="Player 1" class="playerInputBox">
+                    <input type="text" placeholder="Player 2" class="playerInputBox">
+                </div>
+                <div id="startButtonArea">
+                    <div id="startButton">
+                        Start
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div id="winPage" class="hide">
+            <div id="winPageContent">
+                <div id="winMessege">
+                    Julian Wins
+                </div>
+                <div id="resetButton">
+                    Reset
+                </div>
+            </div>
+        </div>
+
+        <div id="informationArea">
+            <div id="informationBox">
+                <div class="playerInfo" id="player1Info">
+                    <div class="playerName" id="player1Name">Julian</div>
+                    <div class="playerScore" id="player1Score">Score: 5</div>
+                </div>
+                <div class="playerInfo" id="player2Info">
+                    <div class="playerName" id="player1Name">John</div>
+                    <div class="playerScore" id="player1Score">Score: 3</div>
+                </div>
+
+            </div>
+
+        </div>
+        <div id="gameboardContainer">
+            <div id="gameBoard">
+                <div class="gameBox" data-boxNumber=1 >1</div>
+                <div class="gameBox" data-boxNumber=2 >2</div>
+                <div class="gameBox" data-boxNumber=3 >3</div>
+                <div class="gameBox" data-boxNumber=4 >4</div>
+                <div class="gameBox" data-boxNumber=5 >5</div>
+                <div class="gameBox" data-boxNumber=6 >6</div>
+                <div class="gameBox" data-boxNumber=7 >7</div>
+                <div class="gameBox" data-boxNumber=8 >8</div>
+                <div class="gameBox" data-boxNumber=9 >9</div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        //player factory
+        const player = (name, playerNumber) => {
+            let score = 0;
+            let pieceDesignation;
+
+            if(playerNumber == 1){
+                pieceDesignation = "X";
+            }
+            else{
+                pieceDesignation = "O";
+            }
+
+            const getName = () => name;
+            const getScore = () => score;
+            const getPieceDesignation = () => pieceDesignation;
+            const getPlayerNumber = () => playerNumber;
+
+            const increaseScore = () => score++;
+
+            //
+
+            return {getName, getScore, increaseScore, getPieceDesignation, getPlayerNumber}
+
+        };
+
+        let john = player("john", 1);
+
+
+
+        //gameboard module
+
+        const gameBoard = (() => {
+
+            let gameArray = ["", "", "", "", "", "", "", "", ""];
+            let currentPlayer = 1;
+
+            const getCurrentPlayer = () => currentPlayer;
+
+            const changePlayer = () => {
+                if(currentPlayer = 1){
+                    currentPlayer = 2;
+                }
+                else{
+                    currentPlayer = 1;
+                }
+            }
+
+
+            const checkSameValue = (val1, val2, val3) => {
+                if(val1 === val2 && val2 === val3){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+
+            const checkWin = () => {
+                //check horizontal wins (contiguous 3 same values) (1,2,3),(4,5,6), (7,8,9)
+
+                //check verticle wins (factors of 3 same values) (1,4,7), (2,5,8), (3,6,9)
+                //check diagonal wins (1,5,9), (3,5,7)
+            }
+
+            const playMove = (player, boxNumber) => {
+                
+
+            }
+
+            const checkTie = () => {
+
+            }
+
+            const resetBoard = () => {
+                gameArray = ["", "", "", "", "", "", "", "", ""];
+            }
+
+            const renderBoard = () => {
+
+            }
+
+            return{checkWin, playMove, resetBoard, getCurrentPlayer}
+
+        }
+        )();
+
+
+        function setupGame() {
+            const player1 = player(name, 1);
+            const player2 = player(name, 2);
+            gameBoard.resetBoard();
+
+        }
+
+
+
+        
+
+
+
+    </script>
+
+</body>

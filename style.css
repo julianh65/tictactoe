@@ -1,0 +1,146 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+/* all start page id's and classes*/
+
+#startPage{
+    position: fixed;
+    background-color: rgb(47, 47, 47);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+#startPageContent{
+    height: 30%;
+    border: solid;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+#startPageTitle{
+    
+}
+
+#playerNameInput{
+
+}
+
+.playerInputBox{
+    border-radius: 5px;
+
+}
+
+#startButtonArea{
+
+}
+
+#startButton{
+    border: solid;
+    padding: 5px;
+    
+}
+
+.hide{
+    display: none !important;
+}
+
+
+/* all start page id's and classes*/
+
+
+/* all win page id's and classes*/
+
+#winPage{
+    position: fixed;
+    background-color: rgb(47, 47, 47);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+
+
+#informationBox{
+    background-color: lightblue;
+    height: 45%;
+    width: 40%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#pageContainer{
+    background-color: rgb(71, 71, 71);
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+    grid-template-rows: 5fr 15fr;;
+}
+
+.playerInfo{
+    display: grid;
+    padding: 15px;
+    grid-template-rows: 3fr 2fr;
+    text-align: center;
+}
+
+#player1Info{
+    background-color: lightcyan;
+}
+
+#player2Info{
+    background-color: teal;
+}
+
+#informationArea{
+    background-color: rgb(34, 34, 34);
+    display: flex;
+    padding-bottom: 35px;
+    align-items: flex-end;
+    justify-content: center;
+
+}
+
+#gameboardContainer{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+#gameBoard{
+    background-color: rgb(156, 156, 156);
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    border: solid;
+}
+
+.gameBox{
+    background-color: rgb(236, 236, 236);
+    height: 7rem;
+    width: 7rem;
+    border: solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
