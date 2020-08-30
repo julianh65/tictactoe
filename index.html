@@ -13,14 +13,14 @@
 <body>
 
     <div id="pageContainer">
-        <div id="startPage" class="hide">
+        <div id="startPage" class="">
             <div id="startPageContent">
                 <div id="startPageTitle">
                     Julian's Tic Tac Toe
                 </div>
                 <div id="playerNameInput">
-                    <input type="text" placeholder="Player 1" class="playerInputBox">
-                    <input type="text" placeholder="Player 2" class="playerInputBox">
+                    <input type="text" placeholder="Player 1" class="playerInputBox" id="player1Input">
+                    <input type="text" placeholder="Player 2" class="playerInputBox" id="player2Input">
                 </div>
                 <div id="startButtonArea">
                     <div id="startButton">
@@ -33,9 +33,18 @@
         <div id="winPage" class="hide">
             <div id="winPageContent">
                 <div id="winMessege">
-                    Julian Wins
                 </div>
-                <div id="resetButton">
+                <div id="winResetButton">
+                    Reset
+                </div>
+            </div>
+        </div>
+        <div id="drawPage" class="hide">
+            <div id="winPageContent">
+                <div id="drawMessege">
+                    It's a draw!
+                </div>
+                <div id="drawResetButton">
                     Reset
                 </div>
             </div>
@@ -44,12 +53,12 @@
         <div id="informationArea">
             <div id="informationBox">
                 <div class="playerInfo" id="player1Info">
-                    <div class="playerName" id="player1Name">Julian</div>
-                    <div class="playerScore" id="player1Score">Score: 5</div>
+                    <div class="playerName" id="player1Name"></div>
+                    <div class="playerScore" id="player1Score"></div>
                 </div>
                 <div class="playerInfo" id="player2Info">
-                    <div class="playerName" id="player1Name">John</div>
-                    <div class="playerScore" id="player1Score">Score: 3</div>
+                    <div class="playerName" id="player2Name"></div>
+                    <div class="playerScore" id="player2Score"></div>
                 </div>
 
             </div>
@@ -57,15 +66,15 @@
         </div>
         <div id="gameboardContainer">
             <div id="gameBoard">
-                <div class="gameBox" data-boxNumber=1 >1</div>
-                <div class="gameBox" data-boxNumber=2 >2</div>
-                <div class="gameBox" data-boxNumber=3 >3</div>
-                <div class="gameBox" data-boxNumber=4 >4</div>
-                <div class="gameBox" data-boxNumber=5 >5</div>
-                <div class="gameBox" data-boxNumber=6 >6</div>
-                <div class="gameBox" data-boxNumber=7 >7</div>
-                <div class="gameBox" data-boxNumber=8 >8</div>
-                <div class="gameBox" data-boxNumber=9 >9</div>
+                <div class="gameBox" data-boxNumber=0 ></div>
+                <div class="gameBox" data-boxNumber=1 ></div>
+                <div class="gameBox" data-boxNumber=2 ></div>
+                <div class="gameBox" data-boxNumber=3 ></div>
+                <div class="gameBox" data-boxNumber=4 ></div>
+                <div class="gameBox" data-boxNumber=5 ></div>
+                <div class="gameBox" data-boxNumber=6 ></div>
+                <div class="gameBox" data-boxNumber=7 ></div>
+                <div class="gameBox" data-boxNumber=8 ></div>
             </div>
         </div>
     </div>
@@ -96,8 +105,6 @@
 
         };
 
-        let john = player("john", 1);
-
 
 
         //gameboard module
@@ -110,7 +117,7 @@
             const getCurrentPlayer = () => currentPlayer;
 
             const changePlayer = () => {
-                if(currentPlayer = 1){
+                if(currentPlayer == 1){
                     currentPlayer = 2;
                 }
                 else{
@@ -120,7 +127,10 @@
 
 
             const checkSameValue = (val1, val2, val3) => {
-                if(val1 === val2 && val2 === val3){
+                if(val1 == "" || val2 == "" || val3 == ""){
+                    return false;
+                }
+                if(val1 == val2 && val2 == val3){
                     return true;
                 }
                 else{
@@ -128,46 +138,179 @@
                 }
             }
 
-            const checkWin = () => {
-                //check horizontal wins (contiguous 3 same values) (1,2,3),(4,5,6), (7,8,9)
+            const returnWin = () => {
+                let winPageReference = document.querySelector("#winPage");
+                winPageReference.classList.toggle("hide");
+                let winnerNameReference = document.querySelector("#winMessege");
+                if(getCurrentPlayer() == 1){
+                    player1.increaseScore();
+                    winnerNameReference.textContent = player1.getName() + " wins!";
 
-                //check verticle wins (factors of 3 same values) (1,4,7), (2,5,8), (3,6,9)
-                //check diagonal wins (1,5,9), (3,5,7)
+                }
+                else{
+                    player2.increaseScore();
+                    winnerNameReference.textContent = player2.getName() + " wins!";
+                }
+
             }
 
-            const playMove = (player, boxNumber) => {
-                
+            const returnDraw = () => {
+                let drawPageReference = document.querySelector("#drawPage");
+                drawPageReference.classList.toggle("hide");
+            }
 
+            const checkWin = () => {
+                console.log(gameArray);
+                console.log(checkSameValue(gameArray[0], gameArray[1], gameArray[2]));
+                //check horizontal wins (contiguous 3 same values) (1,2,3),(4,5,6), (7,8,9)
+                if(checkSameValue(gameArray[0], gameArray[1], gameArray[2]) ||
+                   checkSameValue(gameArray[3], gameArray[4], gameArray[5]) ||
+                   checkSameValue(gameArray[6], gameArray[7], gameArray[8]) ||
+                //check verticle wins (factors of 3 same values) (1,4,7), (2,5,8), (3,6,9)
+                   checkSameValue(gameArray[0], gameArray[3], gameArray[6])||
+                   checkSameValue(gameArray[1], gameArray[4], gameArray[7])||
+                   checkSameValue(gameArray[2], gameArray[5], gameArray[8])||
+                //check diagonal wins (1,5,9), (3,5,7)
+                   checkSameValue(gameArray[0], gameArray[4], gameArray[8]) ||
+                   checkSameValue(gameArray[2], gameArray[4], gameArray[6])){
+                       returnWin();
+                       return true;
+                   }
+
+            }
+
+            const playMove = (boxEvent) => {
+                let textAdd = ""
+                if(currentPlayer == 1){
+                    textAdd = "X";
+                }
+                else{
+                    textAdd = "O"
+                }
+                console.log("move played");
+                let currentBoxNumber = boxEvent.target.getAttribute("data-boxNumber");
+                if(boxEvent.target.textContent !== ""){
+                    return;
+                }
+                boxEvent.target.textContent = textAdd;
+                gameArray[currentBoxNumber] = textAdd;
+                if(checkWin()){
+                    return;
+                }
+                checkTie();
+                changePlayer();
             }
 
             const checkTie = () => {
+                const isNotEmpty = (value) => value != "";
+                if(gameArray.every(isNotEmpty )){
+                    console.log("it's a tie");
+                    returnDraw();
+                }
 
             }
 
             const resetBoard = () => {
                 gameArray = ["", "", "", "", "", "", "", "", ""];
+                let gameBoardRef = document.querySelector("#gameBoard");
+                let boxes = gameBoardRef.children;
+                for(i = 0; i < boxes.length; i++){
+                boxes[i].textContent = "";
+                let player1ScoreDisplayReference = document.querySelector("#player1Score");
+                player1ScoreDisplayReference.textContent = player1.getScore();
+                let player2ScoreDisplayReference = document.querySelector("#player2Score");
+                player2ScoreDisplayReference.textContent = player2.getScore();
+
+
             }
 
-            const renderBoard = () => {
-
             }
+
 
             return{checkWin, playMove, resetBoard, getCurrentPlayer}
 
         }
         )();
 
+        function test(e){
+            console.log(e);
+        }
+
+        let player1 = null;
+        let player2 = null;
 
         function setupGame() {
-            const player1 = player(name, 1);
-            const player2 = player(name, 2);
+            let player1Name = document.querySelector("#player1Input").value;
+            let player2Name = document.querySelector("#player2Input").value;
+
+            if(player1Name == ""){
+                player1Name = "Player 1";
+            }
+            if(player2Name == ""){
+                player2Name = "Player 2";
+            }
+
+            let startPageReference = document.querySelector("#startPage");
+            startPageReference.classList.add("hide");
+
+
+            player1 = player(player1Name, 1);
+            player2 = player(player2Name, 2);
+            console.log("Game starting!");
+            console.log(player1.getName());
+            console.log(player2.getName());
+
+            let player1NameDisplayReference = document.querySelector("#player1Name");
+            let player1ScoreDisplayReference = document.querySelector("#player1Score");
+
+            let player2NameDisplayReference = document.querySelector("#player2Name");
+            let player2ScoreDisplayReference = document.querySelector("#player2Score");
+
+            player1NameDisplayReference.textContent = player1.getName();
+            player1ScoreDisplayReference.textContent = player1.getScore();
+
+            player2NameDisplayReference.textContent = player2.getName();
+            player2ScoreDisplayReference.textContent = player2.getScore();
+
+
             gameBoard.resetBoard();
+
+            //add event listeners to boxes
+
+            let gameBoardRef = document.querySelector("#gameBoard");
+            let boxes = gameBoardRef.children;
+            for(i = 0; i < boxes.length; i++){
+                boxes[i].addEventListener("click", gameBoard.playMove);
+            }
+
+
 
         }
 
+        function resetWin(){
+            let winPageReference = document.querySelector("#winPage");
+            winPageReference.classList.toggle("hide");
+            gameBoard.resetBoard();
+        }
+
+        function resetDraw(){
+            let drawPageReference = document.querySelector("#drawPage");
+            drawPageReference.classList.toggle("hide");
+            gameBoard.resetBoard();
+        }
 
 
+        //event listeners section
+
+
+        let startButtonReference = document.querySelector("#startButton");
+        startButtonReference.addEventListener("click", setupGame);
+
+        let winReset = document.querySelector("#winResetButton");
+        let drawReset = document.querySelector("#drawResetButton");
         
+        winReset.addEventListener("click", resetWin);
+        drawReset.addEventListener("click", resetDraw);
 
 
 
